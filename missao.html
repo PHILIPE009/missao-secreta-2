@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão Secreta - Contagem Regressiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+            color: #00ff88;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        #countdown {
+            font-size: 5rem;
+            letter-spacing: 0.05em;
+        }
+        .label {
+            font-size: 1.2rem;
+            color: #00ff88;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+        }
+        .time-section {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .time-section span {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="countdown">
+            <div class="time-section">
+                <span id="days"></span>
+                <span class="label">DIAS</span>
+            </div>
+            <div class="time-section">
+                <span id="hours"></span>
+                <span class="label">HORAS</span>
+            </div>
+            <div class="time-section">
+                <span id="minutes"></span>
+                <span class="label">MINUTOS</span>
+            </div>
+            <div class="time-section">
+                <span id="seconds"></span>
+                <span class="label">SEGUNDOS</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const countdown = () => {
+            const now = new Date().getTime();
+            const startDate = new Date('October 5, 2024 00:00:00').getTime();
+            const endDate = new Date('October 10, 2024 00:00:00').getTime();
+
+            // Se ainda não for dia 5 de outubro, não exibe a contagem regressiva
+            if (now < startDate) {
+                document.getElementById("countdown").innerHTML = "Contagem começa em 5 de outubro!";
+                return;
+            }
+
+            const timeLeft = endDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            if (timeLeft < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "Missão Iniciada!";
+            }
+        };
+
+        const timer = setInterval(countdown, 1000);
+    </script>
+</body>
+</html>
